@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(express.static('public'));
 
 // MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://<rubylijeesh>:<>@cluster001.4decnes.mongodb.net/serenity-wellness?retryWrites=true&w=majority&appName=Cluster001';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://rubylijeesh:lijeesh1@cluster001.4decnes.mongodb.net/serenity-wellness?retryWrites=true&w=majority&appName=Cluster001';
 
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,

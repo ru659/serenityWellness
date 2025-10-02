@@ -86,10 +86,31 @@ function setupEventListeners() {
     // Custom timer
     document.getElementById('setCustomTimer').addEventListener('click', () => {
         const minutes = parseInt(document.getElementById('customMinutes').value);
-        if (minutes > 0) {
+        if (minutes > 0 && minutes <= 60) {
             setMeditationTimer(minutes);
+            // Clear the custom input
+            document.getElementById('customMinutes').value = '';
+        } else {
+            showNotification('Please enter a valid duration between 1 and 60 minutes');
         }
     });
+    
+    // Custom timer input - Enter key support
+    document.getElementById('customMinutes').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const minutes = parseInt(document.getElementById('customMinutes').value);
+            if (minutes > 0 && minutes <= 60) {
+                setMeditationTimer(minutes);
+                // Clear the custom input
+                document.getElementById('customMinutes').value = '';
+            } else {
+                showNotification('Please enter a valid duration between 1 and 60 minutes');
+            }
+        }
+    });
+    
+    // Cancel timer button
+    document.getElementById('cancelTimer').addEventListener('click', cancelMeditationTimer);
     
     // Volume controls
     document.getElementById('volume').addEventListener('input', updateVolume);
@@ -426,6 +447,14 @@ function closeModal() {
         meditationTimer = null;
     }
     
+    // Hide countdown display
+    document.getElementById('timerCountdown').style.display = 'none';
+    
+    // Remove active state from timer buttons
+    document.querySelectorAll('.timer-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
     // Reset player
     isPlaying = false;
     updatePlayButton();
@@ -530,6 +559,12 @@ function setMeditationTimer(minutes) {
         clearTimeout(meditationTimer);
     }
     
+    // Clear existing countdown interval
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    
     // Update timer buttons
     document.querySelectorAll('.timer-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -552,31 +587,79 @@ function setMeditationTimer(minutes) {
             addToHistory(currentMeditation._id, currentMeditation.category, minutes);
         }
         
+        // Clear countdown display
+        document.getElementById('timerCountdown').style.display = 'none';
+        
+        // Remove active state from timer buttons
+        document.querySelectorAll('.timer-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
         alert(`Meditation timer completed! You've meditated for ${minutes} minutes.`);
     }, minutes * 60 * 1000);
     
     // Show timer countdown
     showTimerCountdown(minutes);
+    
+    // Show notification
+    showNotification(`Timer set for ${minutes} minutes`);
 }
 
 function showTimerCountdown(minutes) {
     let remaining = minutes * 60;
     
+    // Show countdown display
+    const countdownElement = document.getElementById('timerCountdown');
+    const countdownTimeElement = document.getElementById('countdownTime');
+    countdownElement.style.display = 'block';
+    
+    // Clear any existing interval
     if (timerInterval) {
         clearInterval(timerInterval);
     }
+    
+    // Update countdown immediately
+    const mins = Math.floor(remaining / 60);
+    const secs = remaining % 60;
+    countdownTimeElement.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
     
     timerInterval = setInterval(() => {
         remaining--;
         const mins = Math.floor(remaining / 60);
         const secs = remaining % 60;
         
-        // Update UI to show countdown (you can add this to the modal)
+        // Update countdown display
+        countdownTimeElement.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+        
         if (remaining <= 0) {
             clearInterval(timerInterval);
             timerInterval = null;
+            countdownElement.style.display = 'none';
         }
     }, 1000);
+}
+
+function cancelMeditationTimer() {
+    // Clear timer
+    if (meditationTimer) {
+        clearTimeout(meditationTimer);
+        meditationTimer = null;
+    }
+    
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    
+    // Hide countdown display
+    document.getElementById('timerCountdown').style.display = 'none';
+    
+    // Remove active state from timer buttons
+    document.querySelectorAll('.timer-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    showNotification('Timer cancelled');
 }
 
 // ===== Preferences Management =====
