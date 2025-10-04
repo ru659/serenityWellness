@@ -484,6 +484,13 @@ function initializeAudioPlayer() {
         });
     }
     
+    // ✅ Validate audio source before setting it
+    if (!currentMeditation || !currentMeditation.audioUrl) {
+        console.error('No valid audio URL for meditation:', currentMeditation);
+        showNotification('Audio file not available for this meditation.');
+        return;
+    }
+    
     // Set audio source
     audioPlayer.src = currentMeditation.audioUrl;
     audioPlayer.volume = currentUser ? currentUser.preferences.volume : 0.7;
@@ -497,11 +504,23 @@ function initializeAudioPlayer() {
 function togglePlayPause() {
     if (!audioPlayer) return;
     
+    // ✅ Ensure a source is set before playing
+    if (!audioPlayer.src || audioPlayer.src === '') {
+        console.error('No audio source set. Cannot play.');
+        showNotification('No audio file available for this meditation.');
+        return;
+    }
+
     if (isPlaying) {
         audioPlayer.pause();
         isPlaying = false;
     } else {
-        audioPlayer.play();
+        audioPlayer.play().catch(error => {
+            console.error('Error playing audio:', error);
+            showNotification('Error playing audio. Please try again.');
+            isPlaying = false;
+            updatePlayButton();
+        });
         isPlaying = true;
     }
     

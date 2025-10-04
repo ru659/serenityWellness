@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serinity - Meditation & Wellness</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="logo">
+                    <i class="fas fa-leaf"></i>
+                    <h1>Serinity</h1>
+                </div>
+                <nav class="nav">
+                    <button class="nav-btn" data-section="home">Home</button>
+                    <button class="nav-btn" data-section="meditations">Meditations</button>
+                    <button class="nav-btn" data-section="profile">Profile</button>
+                    <button class="logout-btn" id="logoutBtn" style="display: none;">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Section -->
+            <section id="home" class="section active">
+                <div class="container">
+                    <div class="hero">
+                        <h2>Welcome to Your Journey of Inner Peace</h2>
+                        <p>Discover tranquility through guided meditations designed for your wellness</p>
+                        <button class="cta-btn" onclick="showSection('meditations')">
+                            <i class="fas fa-play"></i>
+                            Start Meditating
+                        </button>
+                    </div>
+                    
+                    <div class="categories-grid">
+                        <div class="category-card" data-category="morning-calm">
+                            <div class="category-icon">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <h3>Morning Calm</h3>
+                            <p>Start your day with peaceful energy</p>
+                        </div>
+                        
+                        <div class="category-card" data-category="stress-relief">
+                            <div class="category-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3>Stress Relief</h3>
+                            <p>Release tension and find calm</p>
+                        </div>
+                        
+                        <div class="category-card" data-category="sleep-journey">
+                            <div class="category-icon">
+                                <i class="fas fa-moon"></i>
+                            </div>
+                            <h3>Sleep Journey</h3>
+                            <p>Drift into peaceful rest</p>
+                        </div>
+                        
+                        <div class="category-card" data-category="mindful-practice">
+                            <div class="category-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3>Mindful Practice</h3>
+                            <p>Cultivate present awareness</p>
+                        </div>
+                        
+                        <div class="category-card" data-category="gratitude">
+                            <div class="category-icon">
+                                <i class="fas fa-hands-praying"></i>
+                            </div>
+                            <h3>Gratitude</h3>
+                            <p>Open your heart to appreciation</p>
+                        </div>
+                        
+                        <div class="category-card" data-category="focus-clarity">
+                            <div class="category-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3>Focus & Clarity</h3>
+                            <p>Sharpen mental focus</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Meditations Section -->
+            <section id="meditations" class="section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Meditation Library</h2>
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" data-category="all">All</button>
+                            <button class="filter-tab" data-category="morning-calm">Morning Calm</button>
+                            <button class="filter-tab" data-category="stress-relief">Stress Relief</button>
+                            <button class="filter-tab" data-category="sleep-journey">Sleep Journey</button>
+                            <button class="filter-tab" data-category="mindful-practice">Mindful Practice</button>
+                            <button class="filter-tab" data-category="gratitude">Gratitude</button>
+                            <button class="filter-tab" data-category="focus-clarity">Focus & Clarity</button>
+                        </div>
+                    </div>
+                    
+                    <div class="meditations-grid" id="meditationsGrid">
+                        <!-- Meditations will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="section">
+                <div class="container">
+                    <div class="profile-header">
+                        <h2>Your Profile</h2>
+                        <div class="user-info">
+                            <div class="avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="user-details">
+                                <h3 id="userName">Guest User</h3>
+                                <p id="userEmail">guest@serinity.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-content">
+                        <div class="preferences-section">
+                            <h3>Preferences</h3>
+                            <form id="preferencesForm">
+                                <div class="form-group">
+                                    <label for="defaultDuration">Default Duration (minutes)</label>
+                                    <input type="number" id="defaultDuration" min="5" max="60" value="10">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="favoriteCategory">Favorite Category</label>
+                                    <select id="favoriteCategory">
+                                        <option value="morning-calm">Morning Calm</option>
+                                        <option value="stress-relief">Stress Relief</option>
+                                        <option value="sleep-journey">Sleep Journey</option>
+                                        <option value="mindful-practice">Mindful Practice</option>
+                                        <option value="gratitude">Gratitude</option>
+                                        <option value="focus-clarity">Focus & Clarity</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="volume">Volume</label>
+                                    <input type="range" id="volume" min="0" max="1" step="0.1" value="0.7">
+                                    <span id="volumeValue">70%</span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="notifications" checked>
+                                        <span class="checkmark"></span>
+                                        Enable Notifications
+                                    </label>
+                                </div>
+                                
+                                <button type="submit" class="save-btn">Save Preferences</button>
+                            </form>
+                        </div>
+                        
+                        <div class="history-section">
+                            <h3>Meditation History</h3>
+                            <div class="history-list" id="historyList">
+                                <!-- History will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Meditation Player Modal -->
+        <div id="meditationModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Meditation Title</h3>
+                    <button class="close-btn" onclick="closeModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="meditation-player">
+                        <div class="player-controls">
+                            <button id="playPauseBtn" class="play-btn">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <div class="progress" id="progress"></div>
+                                </div>
+                                <div class="time-display">
+                                    <span id="currentTime">0:00</span>
+                                    <span id="totalTime">0:00</span>
+                                </div>
+                            </div>
+                            <div class="volume-control">
+                                <i class="fas fa-volume-up"></i>
+                                <input type="range" id="playerVolume" min="0" max="1" step="0.1" value="0.7">
+                            </div>
+                        </div>
+                        
+                        <div class="meditation-info">
+                            <p id="modalDescription">Meditation description</p>
+                            <div class="duration-info">
+                                <i class="fas fa-clock"></i>
+                                <span id="modalDuration">10 minutes</span>
+                            </div>
+                        </div>
+                        
+                        <div class="timer-section">
+                            <h4>Set Timer</h4>
+                            <div class="timer-controls">
+                                <button class="timer-btn" data-minutes="5">5 min</button>
+                                <button class="timer-btn" data-minutes="10">10 min</button>
+                                <button class="timer-btn" data-minutes="15">15 min</button>
+                                <button class="timer-btn" data-minutes="20">20 min</button>
+                                <button class="timer-btn" data-minutes="30">30 min</button>
+                            </div>
+                            <div class="custom-timer">
+                                <input type="number" id="customMinutes" min="1" max="60" placeholder="Custom">
+                                <button id="setCustomTimer">Set</button>
+                            </div>
+                            <div class="timer-countdown" id="timerCountdown" style="display: none;">
+                                <div class="countdown-display">
+                                    <i class="fas fa-clock"></i>
+                                    <span id="countdownTime">0:00</span>
+                                </div>
+                                <button class="cancel-timer-btn" id="cancelTimer">Cancel Timer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Authentication Modal -->
+        <div id="authModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Welcome to Serinity</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="login">Login</button>
+                        <button class="auth-tab" data-tab="register">Register</button>
+                    </div>
+                    
+                    <!-- Login Form -->
+                    <form id="loginForm" class="auth-form active">
+                        <div class="form-group">
+                            <label for="loginUsername">Username or Email</label>
+                            <input type="text" id="loginUsername" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="auth-btn">Login</button>
+                        <p class="auth-error" id="loginError" style="display: none;"></p>
+                    </form>
+                    
+                    <!-- Register Form -->
+                    <form id="registerForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="registerUsername">Username</label>
+                            <input type="text" id="registerUsername" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" required minlength="6">
+                            <small>Minimum 6 characters</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPasswordConfirm">Confirm Password</label>
+                            <input type="password" id="registerPasswordConfirm" required minlength="6">
+                        </div>
+                        <button type="submit" class="auth-btn">Register</button>
+                        <p class="auth-error" id="registerError" style="display: none;"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
